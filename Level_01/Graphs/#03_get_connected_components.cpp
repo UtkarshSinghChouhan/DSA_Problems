@@ -15,29 +15,20 @@ public:
     }
 };
 
-bool hasPath(vector<vector<Edge>> graph, int src, int des, vector<int> visited)
+void makeTree(vector<vector<Edge>> graph, int src, vector<int> &visited, vector<int> &comp)
 {
-    if (src == des)
-    {
-        return true;
-    }
-
     visited[src] = 1;
+    comp.push_back(src);
 
     for (Edge e : graph[src])
     {
         if (visited[e.ngb] == 0)
         {
-
-            bool ngbAns = hasPath(graph, e.ngb, des, visited);
-            if (ngbAns == true)
-            {
-                return true;
-            }
+            makeTree(graph, e.ngb, visited, comp);
         }
     }
 
-    return false;
+    return;
 }
 
 int main()
@@ -60,42 +51,47 @@ int main()
         graph[ngb].push_back(Edge(ngb, src));
     }
 
-    int src;
-    cin >> src;
-    int des;
-    cin >> des;
-
     vector<int> visited(vtces, 0);
 
-    if (hasPath(graph, src, des, visited))
+    vector<vector<int>> connected_comp;
+
+    for (int i = 0; i < vtces; i++)
     {
-        cout << "TRUE" << endl;
+        vector<int> comp;
+        if (visited[i] == 0)
+        {
+            makeTree(graph, i, visited, comp);
+            connected_comp.push_back(comp);
+        }
     }
-    else
+
+    // printing the output
+    cout << "[";
+    for (auto comp : connected_comp)
     {
-        cout << "FALSE" << endl;
+        cout << "[";
+        for (auto val : comp)
+        {
+            cout << val << ", ";
+        }
+        cout << "], ";
     }
+    cout << "]" << endl;
 
     return 0;
 }
 
-// 1. You are given a graph, a src vertex and a destination vertex.
-// 2. You are required to find if a path exists between src and dest. If it does, print true
-//      otherwise print false.
+// 1. You are given a graph.
+// 2. You are required to find and print all connected components of the graph.
 
 // Input
 // 7
-// 8
+// 5
 // 0 1
-// 1 2
 // 2 3
-// 0 3
-// 3 4
 // 4 5
 // 5 6
 // 4 6
-// 0
-// 6
 
 // Output
-// TRUE
+// [[0, 1], [2, 3], [4, 5, 6]]

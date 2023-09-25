@@ -15,11 +15,12 @@ public:
     }
 };
 
-bool hasPath(vector<vector<Edge>> graph, int src, int des, vector<int> visited)
+void printAllPaths(vector<vector<Edge>> graph, int src, int des, vector<int> visited, string psf)
 {
     if (src == des)
     {
-        return true;
+        cout << psf << endl;
+        return;
     }
 
     visited[src] = 1;
@@ -29,15 +30,13 @@ bool hasPath(vector<vector<Edge>> graph, int src, int des, vector<int> visited)
         if (visited[e.ngb] == 0)
         {
 
-            bool ngbAns = hasPath(graph, e.ngb, des, visited);
-            if (ngbAns == true)
-            {
-                return true;
-            }
+            printAllPaths(graph, e.ngb, des, visited, psf + to_string(e.ngb));
         }
     }
 
-    return false;
+    visited[src] = 0;
+
+    return;
 }
 
 int main()
@@ -67,21 +66,22 @@ int main()
 
     vector<int> visited(vtces, 0);
 
-    if (hasPath(graph, src, des, visited))
-    {
-        cout << "TRUE" << endl;
-    }
-    else
-    {
-        cout << "FALSE" << endl;
-    }
+    printAllPaths(graph, src, des, visited, "0");
 
     return 0;
 }
 
-// 1. You are given a graph, a src vertex and a destination vertex.
-// 2. You are required to find if a path exists between src and dest. If it does, print true
-//      otherwise print false.
+// 1. You are given a graph, a source vertex and a destination vertex.
+// 2. You are required to find and print all paths between source and destination. Print
+//      them in lexicographical order.
+
+//     E.g. Check the following paths
+//              012546
+//              01256
+//              032546
+//              03256
+
+//     The lexicographically smaller path is printed first.
 
 // Input
 // 7
@@ -98,4 +98,7 @@ int main()
 // 6
 
 // Output
-// TRUE
+// 0123456
+// 012346
+// 03456
+// 0346
