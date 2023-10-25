@@ -37,18 +37,26 @@ int main()
         cin >> moves[i];
     }
 
-    vector<int> dp(n + 1, NULL);
+    vector<int> dp(n + 1, -1);
+    dp[n] = 0;
 
     for (int i = n - 1; i >= 0; i--)
     {
         int minVal = INT_MAX;
 
-        for (int j = 1; j <= moves[i]; j++)
+        for (int j = 1; j <= moves[i] && (i + j) <= n; j++)
         {
-            minVal = min(minVal, moves[(i + j) <= n ? (i + j) : NULL]);
+            if (dp[i + j] == -1)
+            {
+                continue;
+            }
+            minVal = min(minVal, dp[i + j]);
         }
 
-        dp[i] = minVal + 1;
+        if (moves[i] > 0 && minVal != INT_MAX)
+        {
+            dp[i] = minVal + 1;
+        }
         cout << i << "->" << dp[i] << endl;
     }
 

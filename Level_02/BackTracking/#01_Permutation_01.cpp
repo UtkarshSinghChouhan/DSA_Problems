@@ -9,29 +9,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void print_permutation(vector<int> &boxes, int currItem, int r)
+void permutation_01(vector<int> boxes, int ci, int ti)
 {
-
-    if (currItem > r)
+    if (ci > ti)
     {
         for (auto val : boxes)
         {
-            cout << val;
+            cout << val << " ";
         }
-
         cout << endl;
-
         return;
     }
-
     for (int i = 0; i < boxes.size(); i++)
     {
         if (boxes[i] == 0)
         {
-            boxes[i] = currItem;
-
-            print_permutation(boxes, currItem + 1, r);
-
+            boxes[i] = ci;
+            permutation_01(boxes, ci + 1, ti);
             boxes[i] = 0;
         }
     }
@@ -49,7 +43,7 @@ int main()
 
     vector<int> boxes(n, 0);
 
-    print_permutation(boxes, 1, r);
+    permutation_01(boxes, 1, r);
 
     return 0;
 }

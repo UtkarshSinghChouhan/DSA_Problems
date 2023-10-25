@@ -10,19 +10,36 @@
 #include <iostream>
 using namespace std;
 
-void print_Combinations(int cb, int tb, int cs, int ts, string ans)
+// void print_Combinations(int cb, int tb, int cs, int ts, string ans)
+// {
+//     if (cb > tb)
+//     {
+//         if (cs == ts)
+//         {
+//             cout << ans << endl;
+//         }
+
+//         return;
+//     }
+//     print_Combinations(cb + 1, tb, cs + 1, ts, ans + "i");
+//     print_Combinations(cb + 1, tb, cs + 0, ts, ans + "-");
+//     return;
+// }
+
+void combination_01(int tb, int cb, int ti, string asf)
 {
     if (cb > tb)
     {
-        if (cs == ts)
+        if (ti == 0)
         {
-            cout << ans << endl;
+            cout << asf << endl;
         }
 
         return;
     }
-    print_Combinations(cb + 1, tb, cs + 1, ts, ans + "i");
-    print_Combinations(cb + 1, tb, cs + 0, ts, ans + "-");
+
+    combination_01(tb, cb + 1, ti - 1, asf + "i");
+    combination_01(tb, cb + 1, ti, asf + "-");
     return;
 }
 
@@ -33,7 +50,10 @@ int main()
     int r;
     cin >> r;
 
-    print_Combinations(1, n, 0, r, "");
+    // print_Combinations(1, n, 0, r, "");
+
+    combination_01(n, 1, r, "");
+
     return 0;
 }
 
