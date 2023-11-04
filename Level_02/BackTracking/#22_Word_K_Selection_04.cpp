@@ -1,39 +1,28 @@
 // 1. You are given a word (may have one character repeat more than once).
 // 2. You are given an integer k.
-// 2. You are required to generate and print all ways you can select k characters out of the word.
+// 3. You are required to generate and print all ways you can select k characters out of the word.
 
 // Note -> Use the code snippet and follow the algorithm discussed in question video. The judge can't force you but the intention is to teach a concept. Play in spirit of the question.
 
 #include <bits/stdc++.h>
-
 using namespace std;
 
-void word_k_selection_03(int idx, string str, string ans, int k, map<char, int> &m)
+void word_k_selection_04(string asf, string ustr, map<char, int> &m, int lastUsedIndex, int k)
 {
-    if (idx == str.length())
+    if (asf.length() == k)
     {
-        if (ans.length() == k)
-        {
-            cout << ans << endl;
-        }
-
+        cout << asf << endl;
         return;
     }
-
-    int iterationLimit = m[str[idx]];
-
-    for (int i = iterationLimit; i >= 1; i--)
+    for (int i = lastUsedIndex; i < ustr.length(); i++)
     {
-        string charCount = "";
-        for (int j = 1; j <= i; j++)
+        if (m[ustr[i]] != 0)
         {
-            charCount += str[idx];
+            m[ustr[i]] -= 1;
+            word_k_selection_04(asf + ustr[i], ustr, m, i, k);
+            m[ustr[i]] += 1;
         }
-
-        word_k_selection_03(idx + 1, str, ans + charCount, k, m);
     }
-
-    word_k_selection_03(idx + 1, str, ans, k, m);
     return;
 }
 
@@ -45,21 +34,24 @@ int main()
     cin >> k;
 
     map<char, int> m;
-    string uStr = "";
+    string ustr = "";
     for (int i = 0; i < str.length(); i++)
     {
         if (m.find(str[i]) == m.end())
         {
-            uStr += str[i];
+            ustr += str[i];
         }
+
         m[str[i]]++;
     }
 
-    // cout << uStr << endl;
-    word_k_selection_03(0, uStr, "", k, m);
-
+    word_k_selection_04("", ustr, m, 0, k);
     return 0;
 }
+
+// CONSTRAINTS
+//  0 < str.length() < 15
+//  0 < k <= str.length()
 
 // INPUT
 // aabbbccdde
