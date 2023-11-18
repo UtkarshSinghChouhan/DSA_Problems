@@ -1,37 +1,29 @@
-// You have given a pointer to the head node of a linked list, the task is to reverse the linked list.
-// We need to reverse the list by changing the links between nodes.
+// You have given a pointer to the head node of a linked list, the task is to
+// reverse the linked list. We need to reverse the list by changing the links
+// between nodes.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-class Node
-{
-public:
+class Node {
+  public:
     int data;
     Node *next;
-    Node(int data)
-    {
+    Node(int data) {
         this->data = data;
         this->next = NULL;
     }
 };
 
-Node *addLast(Node *head, int val)
-{
+Node *addLast(Node *head, int val) {
     Node *newNode = new Node(val);
-    if (head == NULL)
-    {
+    if (head == NULL) {
         head = newNode;
-    }
-    else if (head->next == NULL)
-    {
+    } else if (head->next == NULL) {
         head->next = newNode;
-    }
-    else
-    {
+    } else {
         Node *temp = head;
-        while (temp->next != NULL)
-        {
+        while (temp->next != NULL) {
             temp = temp->next;
         }
         temp->next = newNode;
@@ -40,11 +32,9 @@ Node *addLast(Node *head, int val)
     return head;
 }
 
-void display(Node *head)
-{
+void display(Node *head) {
     Node *temp = head;
-    while (temp != NULL)
-    {
+    while (temp != NULL) {
         cout << temp->data << "->";
         temp = temp->next;
     }
@@ -52,24 +42,20 @@ void display(Node *head)
     cout << "null" << endl;
 }
 
-int size(Node *head)
-{
+int size(Node *head) {
     int count = 0;
     Node *temp = head;
-    while (temp != NULL)
-    {
+    while (temp != NULL) {
         count++;
         temp = temp->next;
     }
     return count;
 }
 
-Node *getNodeAt(Node *head, int idx)
-{
+Node *getNodeAt(Node *head, int idx) {
 
     Node *temp = head;
-    for (int i = 0; i < idx; i++)
-    {
+    for (int i = 0; i < idx; i++) {
         temp = temp->next;
     }
 
@@ -77,17 +63,14 @@ Node *getNodeAt(Node *head, int idx)
 }
 
 // Data Iterative
-Node *reverseDataIterative(Node *head)
-{
-    if (head == NULL || head->next == NULL)
-    {
+Node *reverseDataIterative(Node *head) {
+    if (head == NULL || head->next == NULL) {
         return head;
     }
     int lo = 0, hi = size(head) - 1;
     Node *left = NULL;
     Node *right = NULL;
-    while (lo <= hi)
-    {
+    while (lo <= hi) {
         left = getNodeAt(head, lo);
         right = getNodeAt(head, hi);
 
@@ -103,18 +86,15 @@ Node *reverseDataIterative(Node *head)
 }
 
 // Pointer Iterative
-Node *reversePointerIterative(Node *head)
-{
-    if (head == NULL || head->next == NULL)
-    {
+Node *reversePointerIterative(Node *head) {
+    if (head == NULL || head->next == NULL) {
         return head;
     }
     Node *pre = NULL;
     Node *curr = head;
 
     Node *temp = NULL;
-    while (curr != NULL)
-    {
+    while (curr != NULL) {
         temp = curr->next;
         curr->next = pre;
         pre = curr;
@@ -124,10 +104,8 @@ Node *reversePointerIterative(Node *head)
     return pre;
 }
 
-void utils(Node *head)
-{
-    if (head->next == NULL)
-    {
+void utils(Node *head) {
+    if (head->next == NULL) {
         return;
     }
     utils(head->next);
@@ -139,8 +117,7 @@ void utils(Node *head)
 }
 
 // Pointer Recursive
-Node *reversePointerRecursive(Node *head)
-{
+Node *reversePointerRecursive(Node *head) {
     Node *tail = getNodeAt(head, size(head) - 1);
     utils(head);
     head->next = NULL;
@@ -148,13 +125,11 @@ Node *reversePointerRecursive(Node *head)
     return head;
 }
 
-int main()
-{
+int main() {
     int n;
     cin >> n;
     Node *head = NULL;
-    for (int i = 1; i <= n; i++)
-    {
+    for (int i = 1; i <= n; i++) {
         int val;
         cin >> val;
         head = addLast(head, val);
