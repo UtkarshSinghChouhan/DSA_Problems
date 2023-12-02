@@ -1,5 +1,6 @@
-// Given a singly linked list of Integers,
-//     determine it is a palindrome or not .
+// Given a singly linkedlist : l0 -> l1 -> l2 -> l3 -> l4 -> l5 -> l6 ..... ->
+// ln-1 -> ln reorder it : l0 -> ln -> l1 -> ln-1 -> l2 -> ln-2 -> l3 -> ln-3 ->
+// ... ->
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -42,16 +43,7 @@ void display(Node *head) {
     cout << "null" << endl;
 }
 
-Node *getNodeAt(Node *head, int idx) {
-
-    Node *temp = head;
-    for (int i = 0; i < idx; i++) {
-        temp = temp->next;
-    }
-
-    return temp;
-}
-
+// Middle of the Linked-List
 Node *middleOfLinkedList(Node *head) {
     Node *s = head, *f = head;
 
@@ -63,8 +55,8 @@ Node *middleOfLinkedList(Node *head) {
     return s;
 }
 
-// Pointer Iterative
-Node *reversePointerIterative(Node *head) {
+// reverse of Linked List
+Node *reverseOfLinkedList(Node *head) {
     if (head == NULL || head->next == NULL) {
         return head;
     }
@@ -82,42 +74,35 @@ Node *reversePointerIterative(Node *head) {
     return pre;
 }
 
-// Palindrome function
-bool isPalindrome(Node *head) {
-    // Handling the edge cases
+void foldLinkedList(Node *head) {
     if (head == NULL || head->next == NULL) {
-        return true;
+        return;
     }
 
-    // At First find the middle of the linked list
-    Node *midNode = middleOfLinkedList(head);
+    // finding the middle node
+    Node *mid = middleOfLinkedList(head);
+    Node *newHead = mid->next;
+    mid->next = NULL;
 
-    // break the linked list into two
-    Node *halfList = midNode->next;
-    midNode->next = NULL;
+    // reverse the second-half of the list
+    newHead = reverseOfLinkedList(newHead);
 
-    // Now reverse only the second half of the linked list
-    halfList = reversePointerIterative(halfList);
+    Node *c1 = head;
+    Node *f1 = NULL;
 
-    // At last check for palindrome
-    Node *lo = head, *hi = halfList;
+    Node *c2 = newHead;
+    Node *f2 = NULL;
 
-    bool res =
-        true; // initially we are considering that the list is palindromic
-    while (hi != NULL) {
-        if (lo->data != hi->data) {
-            res = false;
-            break;
-        }
-        lo = lo->next;
-        hi = hi->next;
+    while (c2 != NULL) {
+        f1 = c1->next;
+        f2 = c2->next;
+
+        c1->next = c2;
+        c2->next = f1;
+
+        c1 = f1;
+        c2 = f2;
     }
-
-    // Now before returning the answer we need to fix the list to what it was
-    halfList = reversePointerIterative(halfList);
-    midNode->next = halfList;
-
-    return res;
 }
 
 int main() {
@@ -132,11 +117,7 @@ int main() {
 
     display(head);
 
-    if (isPalindrome(head)) {
-        cout << "true" << endl;
-    } else {
-        cout << "false" << endl;
-    }
+    foldLinkedList(head);
 
     display(head);
 
@@ -157,4 +138,4 @@ int main() {
 // 5
 
 // OUTPUT
-// true
+// 5->1->4->6->9->9->6->4->1->5->null
