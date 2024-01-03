@@ -1,11 +1,16 @@
-// . You are give a number of boxes (nboxes) and number of identical items (ritems).
-// 2. You are required to place the items in those boxes and print all such configurations possible.
+// . You are give a number of boxes (nboxes) and number of identical items
+// (ritems).
+// 2. You are required to place the items in those boxes and print all such
+// configurations possible.
 
 // Items are identical and all of them are named 'i'.
-// Note 1 -> Number of boxes is greater than number of items, hence some of the boxes may remain
+// Note 1 -> Number of boxes is greater than number of items, hence some of the
+// boxes may remain
 //                    empty.
-// Note 2 -> Check out the question video and write the recursive code as it is intended without
-//                    changing signature. The judge can't force you but intends you to teach a concept.
+// Note 2 -> Check out the question video and write the recursive code as it is
+// intended without
+//                    changing signature. The judge can't force you but intends
+//                    you to teach a concept.
 
 #include <iostream>
 using namespace std;
@@ -26,12 +31,14 @@ using namespace std;
 //     return;
 // }
 
-void combination_01(int tb, int cb, int ti, string asf)
-{
-    if (cb > tb)
-    {
-        if (ti == 0)
-        {
+// tb- total box
+// cb - current box
+// ti - total item
+// asf - answer so far
+
+void combination_01(int tb, int cb, int ti, string asf) {
+    if (cb > tb) {
+        if (ti == 0) {
             cout << asf << endl;
         }
 
@@ -43,8 +50,7 @@ void combination_01(int tb, int cb, int ti, string asf)
     return;
 }
 
-int main()
-{
+int main() {
     int n;
     cin >> n;
     int r;
