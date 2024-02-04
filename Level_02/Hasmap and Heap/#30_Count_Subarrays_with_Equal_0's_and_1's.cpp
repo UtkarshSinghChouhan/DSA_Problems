@@ -1,29 +1,26 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-
 using namespace std;
 
-int length(vector<int> &arr) {
-    int len = 0, ssf = 0, i = -1, n = arr.size();
+int count(vector<int> &arr) {
+    int cnt = 0, ssf = 0, i = -1, n = arr.size();
 
-    // sum-so-far vs index
+    // sum-so-far vs frequency
     unordered_map<int, int> m;
-    m.insert({0, -1});
+    m.insert({0, 1});
 
     while (i < n - 1) {
         i++;
-        ssf += arr[i] == 0 ? -1 : 1;
+        ssf += (arr[i] == 0) ? -1 : 1;
 
         if (m.count(ssf)) {
-            int pLen = i - m[ssf];
-            len = max(pLen, len);
-        } else {
-            m[ssf] = i;
+            cnt += m[ssf];
         }
+        m[ssf]++;
     }
 
-    return len;
+    return cnt;
 }
 
 int main() {
@@ -36,8 +33,7 @@ int main() {
         arr.push_back(val);
     }
 
-    cout << length(arr);
-
+    cout << count(arr);
     return 0;
 }
 
@@ -57,5 +53,5 @@ int main() {
 // 1
 // 1
 
-// OUTPUT
-// length = 12
+// INPUT
+// count = 24
