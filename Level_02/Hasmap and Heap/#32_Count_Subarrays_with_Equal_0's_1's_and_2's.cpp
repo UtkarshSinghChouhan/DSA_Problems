@@ -6,7 +6,7 @@ using namespace std;
 int count(vector<int> &arr) {
     int cnt = 0, zCnt = 0, oCnt = 0, tCnt = 0, i = -1, n = arr.size();
 
-    // "(oCnt - zCnt)#(tCnt - oCnt)" vs idx
+    // "(oCnt - zCnt)#(tCnt - oCnt)" vs frequency
     unordered_map<string, int> m;
     m.insert({"0#0", 1});
 
