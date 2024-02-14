@@ -44,7 +44,9 @@ class FreqStack {
 
         freqMap[returnVal]--;
 
-        if (freqMap[returnVal] == 0)
+        if (freqMap[returnVal] ==
+            0) // here if we try to defined a removeFromMap utility function, we
+               // need to make it generic because on map is int-vs-stack and the other one is int-vs-int
             freqMap.erase(returnVal);
 
         return returnVal;
