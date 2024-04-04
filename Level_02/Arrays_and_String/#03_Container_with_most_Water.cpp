@@ -28,7 +28,7 @@ int solutionOptimized(vector<int> &heights){
         int w = j - i;
         int h = min(heights[i], heights[j]);
         water = max(water, w * h);
-        (i < j)  ? i++ : j--;
+        (heights[i] <= heights[j])  ? i++ : j--;
     }
 
     return water;
