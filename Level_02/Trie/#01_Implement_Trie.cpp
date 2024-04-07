@@ -103,7 +103,7 @@ class Trie{
 
 };
 
-int main(){
+int main(){ 
 
     int n; cin >> n;
     Trie t;
